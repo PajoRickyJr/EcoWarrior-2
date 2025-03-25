@@ -130,7 +130,7 @@ const UserDashboard = {
       waste: { title: "Waste Management", collection: "wastePractices" },
       energy: { title: "Energy Saving", collection: "energyPractices" },
       recycling: { title: "Recycling", collection: "recyclingPractices" },  // May be empty.
-      recycling: { title: "Tips", collection: "tipsPractices" }
+      tips: { title: "Tips", collection: "tipsPractices" }
     };
 
     if (navigator.onLine) {
