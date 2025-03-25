@@ -129,7 +129,7 @@ const UserDashboard = {
       water: { title: "Water Conservation", collection: "waterPractices" },
       waste: { title: "Waste Management", collection: "wastePractices" },
       energy: { title: "Energy Saving", collection: "energyPractices" },
-      recycling: { title: "Recycling", collection: "recyclingPractices" },  // May be empty.
+      recycling: { title: "Recycling", collection: "recyclingPractices" }, 
       tips: { title: "Tips", collection: "tipsPractices" }
     };
 
