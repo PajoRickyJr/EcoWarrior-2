@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="adminDashboard.css" />
+</head>
+<body>
+  <div id="adminDashboard">
+    <!-- Header Area -->
+    <header>
+      <h1>Admin Dashboard</h1>
+      <button id="logoutButton" aria-label="Log out">Logout</button>
+    </header>
+
+    <!-- Top Navigation / Tab Bar -->
+    <nav class="tab-nav" aria-label="Main Sections Navigation">
+      <button data-tab="userManagement" class="active">User Management</button>
+      <button data-tab="practicesManagement">Eco-friendly Practices and Tips Management</button>
+      <button data-tab="feedbackManagement">Feedback Management</button>
+    </nav>
+
+    <!-- Main Content Area with Tab Sections -->
+    <main>
+      <div class="tab-content">
+        <!-- User Management Section -->
+        <section id="userManagement" class="tab-section active">
+          <h2>User Management</h2>
+          <table id="userTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>EcoWarrior ID</th>
+                <th>Registration Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3">No user data available</td>
+              </tr>
+              <!-- Dynamically inserted user data -->
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Eco-friendly Practices Section (Dynamic) -->
+        <section id="practicesManagement" class="tab-section">
+          <h2>Eco-friendly Practices and Tips Management</h2>
+          <!-- This container will be populated dynamically -->
+          <div id="practicesDynamicContainer">
+            <!-- Sub-tab navigation for each eco-friendly practice category -->
+            <div id="tabNavContainer"></div>
+            <!-- Content sections for each category (e.g., water, waste, energy, recycling) -->
+            <div id="sectionsContainer"></div>
+          </div>
+        </section>
+
+        <!-- Feedback Management Section -->
+        <section id="feedbackManagement" class="tab-section">
+          <h2>Feedback Management</h2>
+          <table id="feedbackTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>EcoWarrior ID</th>
+                <th>Feedback</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4">No feedback available</td>
+              </tr>
+              <!-- Dynamically inserted feedback data -->
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- External JavaScript Files -->
+  <script type="module" src="adminDashboard.js"></script>
+  <script type="module" src="practiceManage.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoWarrior - User</title>
+  <link rel="stylesheet" href="userContent.css">
+  <!-- Placeholder favicon -->
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <!-- Header Section -->
+  <header id="userHeader">
+    <div id="connectivityStatus"></div>
+<button id="syncPracticesBtn">Sync Practices</button>
+    <h1 id="nameGreet"></h1>
+    <p id="ecowarriorID"></p>
+  </header>
+
+  <!-- Main Container for Practices -->
+  <main id="sectionsContainer">
+    <!-- Practices will be rendered here -->
+  </main>
+
+  <!-- Feedback Form -->
+   <button id="toggleFeedbackBtn">Give Feedback</button>
+  <form id="feedbackForm" class="hidden" aria-hidden="true">
+    <label for="feedback">Your Feedback:</label>
+    <textarea id="feedback" placeholder="Share your thoughts..."></textarea>
+    <button type="submit">Submit Feedback</button>
+  </form>
+
+  <script type="module" src="userContent.js"></script>
+</body>
+</html>

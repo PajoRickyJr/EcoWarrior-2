@@ -1,0 +1,236 @@
+/* *******************************
+   General Reset and Base Styles
+   ******************************* */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .online {
+    color: green;
+  }
+  .offline {
+    color: red;
+  }
+  
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3 {
+    color: #2c3e50;
+  }
+  
+  button, input, textarea, select {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #ecf0f1;
+    cursor: pointer;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #3498db;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  /* *******************************
+     Header Section
+     ******************************* */
+  header {
+    background-color: #3498db;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  header p {
+    font-size: 1rem;
+  }
+  
+  /* *******************************
+     Feedback Form
+     ******************************* */
+  #feedbackForm {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #feedbackForm label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  #feedbackForm input,
+  #feedbackForm textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    resize: vertical;
+  }
+  
+  #feedbackForm button[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #feedbackForm button[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+  
+  .message-container {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  .message {
+    padding: 0.75rem;
+    border-radius: 4px;
+    color: white;
+  }
+  
+  .message.success {
+    background-color: #2ecc71;
+  }
+  
+  .message.error {
+    background-color: #e74c3c;
+  }
+  
+  /* *******************************
+     Dashboard Layout
+     ******************************* */
+  #mainboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .tab-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto; /* Allow horizontal scrolling for small screens */
+  }
+  
+  .tab-nav button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    flex: 1;
+    text-align: center;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  .tab-nav button.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+  }
+  
+  .practice-section {
+    display: none;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .practice-section.active {
+    display: block;
+  }
+  
+  .search-bar {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .practices-list {
+    list-style: none;
+  }
+  
+  .practice-item {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .practice-item h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .practice-item p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .no-practice-message {
+    text-align: center;
+    color: #aaa;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* *******************************
+     Responsive Design
+     ******************************* */
+  @media (max-width: 768px) {
+    .tab-nav {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+  
+    .tab-nav button {
+      flex: none;
+      white-space: nowrap;
+    }
+  
+    #feedbackForm {
+      padding: 1rem;
+    }
+  }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoWarrior</title>
+    <meta name="description" content="EcoWarrior app role selection screen. Choose between User and Admin roles to get started with eco-friendly tips and content management." />
+    <link rel="stylesheet" href="EcoWarrior.css" />
+  </head>
+  <body>
+    <main class="Main">
+      <header class="header">
+        <img src="logo.png" alt="EcoWarrior Logo" class="logo" />
+        <h1 class="appName">Welcome to EcoWarrior</h1>
+        <p class="instruct">
+          Select your role:<br />
+          Tap <strong>User</strong> for eco-friendly tips or
+          <strong>Admin</strong> to manage content.
+        </p>
+        <p class="tagline">Empower Your Eco-journey</p>
+      </header>
+      <div class="role-selection-container">
+
+        <!-- For User Part -->
+        <div class="role-box" id="userBox" aria-label="Select user role">
+          <img
+            src="guestIcon.png"
+            alt="Icon representing user role"
+            class="icon"
+          /><br />
+          <span>User</span>
+          <p>Join as a regular user to explore eco-friendly tips and practices</p>
+        </div>
+
+        <!-- For Admin Part --> 
+        <div class="role-box" id="adminBox" aria-label="Select admin role">
+          <img
+            src="adminIcon.png"
+            alt="Icon representing admin role"
+            class="icon"
+          /><br />
+          <span>Admin</span>
+          <p>For Admin Only</p>
+        </div>
+      </div>
+    </main>
+    <script src="EcoWarrior.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+            // Registration was successful
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

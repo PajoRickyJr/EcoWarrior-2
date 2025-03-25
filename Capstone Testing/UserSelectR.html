@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join EcoWarrior and contribute to a sustainable future for your children.">
+    <meta name="keywords" content="EcoWarrior, sustainability, eco-friendly, parents, community">
+    <meta name="author" content="Your Team Name">
+    <title>Be an EcoWarrior</title>
+    <link rel="stylesheet" href="UserSelectR.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <section id="intro">
+            <h1>Become an EcoWarrior</h1>
+            <p>Join a community of parents committed to sustainability and a greener future for our children!</p>
+        </section>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- EcoWarrior Registration Form -->
+        <form id="ecowarriorForm">
+            <label for="nameUser">Your Name:</label>
+            <input type="text" id="nameUser" placeholder="Type your name here..." >
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="confirmEcowarrior" >
+                <label for="confirmEcowarrior">
+                    I confirm that I am willing to be an EcoWarrior to save our planet!
+                </label>
+            </div>
+
+            <button type="submit">Join as an EcoWarrior</button>
+        </form>
+
+        <!-- EcoWarrior ID Display -->
+        <div id="ecowarriorID" class="hidden">
+            <p>Your unique EcoWarrior ID: <span id="generatedID"></span></p>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="hidden">
+            <div class="spinner"></div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Are you ready? <a href="userContent.html">Explore eco-friendly practices and tips now!</a></p>
+    </footer>
+
+    <!-- Firebase SDK 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+-->
+    <!-- JavaScript -->
+    <script type="module" src="UserSelectR.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    background: linear-gradient(135deg, #acd8a7, #e0f7e9);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+  }
+  
+  /* Keyframe animations for the gradient */
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Layout of the Mainpage */
+  .Main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    min-height: 100vh;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Header Styles */
+  .header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #2e7d32, #388E3C);
+    margin-bottom: 40px;
+    animation: slideIn 1s ease-in-out;
+    border-bottom: 2px solid #5bb450;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%); /* Create a wavy bottom edge */
+  }
+  
+  .logo {
+    max-width: 50px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+  
+  .appName {
+    font-size: 2.5em;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .instruct {
+    font-size: 1.2em;
+    color: #e0f7e9;
+    line-height: 1.4;
+    padding: 0 20px;
+    margin-top: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .tagline {
+    font-size: 1em;
+    color: #e0f7e9;
+    margin-top: 5px;
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+  }
+  
+  /* Container styling to center items */
+  .role-selection-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  
+  /* Styling for the clickable boxes */
+  .role-box {
+    border: 3px solid #5bb450;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    background: #cce7c9;
+    width: 200px;
+    height: 250px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .role-box:hover {
+    background-color: #e0f2f1;
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .role-box:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+  
+  /* Icon styling */
+  .role-box .icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  /* Role label styling */
+  .role-box span {
+    font-size: 24px;
+    color: #46923c;
+    font-weight: bold;
+  }
+  
+  /* Descriptive text below icons */
+  .role-box p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  /* Keyframe animations */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateY(-50%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      transform: translateY(20%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Mobile Responsiveness */
+  @media only screen and (max-width: 600px) {
+    .Main {
+      padding: 10px;
+    }
+  
+    .header {
+      padding: 15px;
+    }
+  
+    .appName {
+      font-size: 2em;
+    }
+  
+    .instruct {
+      font-size: 1em;
+    }
+  
+    .tagline {
+      font-size: 0.9em;
+    }
+  
+    .role-box {
+      width: 150px;
+      height: auto;
+      padding: 15px;
+    }
+  
+    .role-box .icon {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .role-box span {
+      font-size: 18px;
+    }
+  
+    .role-box p {
+      font-size: 14px;
+    }
+  }
+  
