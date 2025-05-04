@@ -4,59 +4,73 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EcoWarrior</title>
-    <meta name="description" content="EcoWarrior app role selection screen. Choose between User and Admin roles to get started with eco-friendly tips and content management." />
+    <meta name="description" content="EcoWarrior app role selection screen. Choose between User and Admin roles for eco-friendly tips and content management." />
     <link rel="stylesheet" href="EcoWarrior.css" />
+    <!-- Any additional inline style for critical above-the-fold styling can remain here -->
   </head>
   <body>
-    <main class="Main">
-      <header class="header">
-        <img src="logo.png" alt="EcoWarrior Logo" class="logo" />
-        <h1 class="appName">Welcome to EcoWarrior</h1>
-        <p class="instruct">
-          Select your role:<br />
-          Tap <strong>User</strong> for eco-friendly tips or
-          <strong>Admin</strong> to manage content.
-        </p>
-        <p class="tagline">Empower Your Eco-journey</p>
-      </header>
-      <div class="role-selection-container">
+    <!-- Online Notification Banner -->
+    <div id="online-notification">
+     <p>You are now online! Refresh for additional content.</p>
+     <button id="switchOnline">Switch to Online Mode</button>
+     <button id="stayOffline">Stay Offline</button>
 
-        <!-- For User Part -->
-        <div class="role-box" id="userBox" aria-label="Select user role">
-          <img
-            src="guestIcon.png"
-            alt="Icon representing user role"
-            class="icon"
-          /><br />
-          <span>User</span>
-          <p>Join as a regular user to explore eco-friendly tips and practices</p>
-        </div>
+    </div>
 
-        <!-- For Admin Part --> 
-        <div class="role-box" id="adminBox" aria-label="Select admin role">
-          <img
-            src="adminIcon.png"
-            alt="Icon representing admin role"
-            class="icon"
-          /><br />
-          <span>Admin</span>
-          <p>For Admin Only</p>
+    <!-- ONLINE MODE SECTION -->
+    <div id="online-content">
+      <main class="Main">
+        <header class="header">
+          <img src="logo.png" alt="EcoWarrior Logo" class="logo" />
+          <h1 class="appName">Welcome to EcoWarrior</h1>
+          <p class="instruct">
+            Select your role:<br />
+            Tap <strong>User</strong> for eco-friendly tips or <strong>Admin</strong> to manage content.
+          </p>
+          <p class="tagline">Empower Your Eco-journey</p>
+        </header>
+        <div class="role-selection-container">
+          <!-- User Role -->
+          <div class="role-box" id="userBox" aria-label="Select user role">
+            <img src="guestIcon.png" alt="Icon representing user role" class="icon" /><br />
+            <span>User</span>
+            <p>Join as a regular user to explore eco-friendly tips and practices</p>
+          </div>
+          <!-- Admin Role -->
+          <div class="role-box" id="adminBox" aria-label="Select admin role">
+            <img src="adminIcon.png" alt="Icon representing admin role" class="icon" /><br />
+            <span>Admin</span>
+            <p>For Admin Only</p>
+          </div>
         </div>
-      </div>
-    </main>
-    <script src="EcoWarrior.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }, function(err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err);
-          });
-        });
-      }
-    </script>
+      </main>
+    </div>
+
+    <!-- OFFLINE MODE SECTION -->
+    <div id="offline-content">
+      <h2>You're currently offline</h2>
+      <p>
+        In the meantime, here are some eco-friendly practices available even without an internet connection:
+      </p>
+      <!-- Water practices -->
+      <section class="category" id="water-section">
+        <h3>Water Practices</h3>
+        <ul id="water-list"></ul>
+      </section>
+      <!-- Electricity practices -->
+      <section class="category" id="electricity-section">
+        <h3>Electricity Practices</h3>
+        <ul id="electricity-list"></ul>
+      </section>
+      <!-- Waste practices -->
+      <section class="category" id="waste-section">
+        <h3>Waste Reduction and Management Practices</h3>
+        <ul id="waste-list"></ul>
+      </section>
+    </div>
+
+    <!-- External Scripts -->
+    <script src="EcoWarrior.js?v=1.4"></script>
+    <!--<script src="sw-registration.js"></script>-->
   </body>
 </html>
