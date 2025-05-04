@@ -1,216 +1,309 @@
+:root {
+  --primary-color: #2e7d32;
+  --secondary-color: #388e3c;
+  --accent-color: #5bb450;
+  --light-bg: #cce7c9;
+  --hover-bg: #e0f2f1;
+  --header-text: #ffffff;
+  --instruction-text: #e0f7e9;
+  --body-text: #555555;
+  --offline-bg: #f9f9f9;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --hover-shadow: rgba(0, 0, 0, 0.3);
+}
+
 /* General Styles */
 body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 100%;
-    background: linear-gradient(135deg, #acd8a7, #e0f7e9);
-    background-size: 400% 400%;
-    animation: gradientAnimation 10s ease infinite;
-  }
-  
-  /* Keyframe animations for the gradient */
-  @keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  
-  /* Layout of the Mainpage */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  background: linear-gradient(135deg, #acd8a7, #e0f7e9);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Online Notification Banner */
+#online-notification {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+#online-notification button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: #fff;
+}
+
+#online-notification button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Layout for Main Online Content */
+.Main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  min-height: 100vh;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Header Styles */
+.header {
+  position: relative;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  margin-bottom: 2.5rem;
+  animation: slideIn 1s ease-in-out;
+  border-bottom: 2px solid var(--accent-color);
+  box-shadow: 0 4px 8px var(--shadow);
+  overflow: hidden;
+  clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+}
+
+.logo {
+  display: block; /* Ensures the logo is treated as a block element */
+  margin: 0 auto; /* Centers the logo horizontally */
+  max-width: 150px; /* Sets a maximum width for the logo */
+  height: auto; 
+  margin-bottom: 20px; 
+  border-radius: 10px;
+}
+
+.appName {
+  font-size: 2.5rem;
+  color: var(--header-text);
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.instruct {
+  font-size: 1.2rem;
+  color: var(--instruction-text);
+  line-height: 1.4;
+  padding: 0 1.25rem;
+  margin-top: 0.625rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.tagline {
+  font-size: 1rem;
+  color: var(--instruction-text);
+  margin-top: 0.3125rem;
+  font-style: italic;
+}
+
+/* Role Box Styles */
+.role-selection-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.875rem;
+}
+
+.role-box {
+  border: 3px solid var(--accent-color);
+  border-radius: 12px;
+  padding: 1.875rem;
+  text-align: center;
+  cursor: pointer;
+  background: var(--light-bg);
+  width: 200px;
+  height: 250px;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 1.2s ease-in-out;
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+.role-box:hover {
+  background-color: var(--hover-bg);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px var(--hover-shadow);
+}
+
+.role-box:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+.role-box .icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0.625rem;
+}
+
+.role-box span {
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.625rem;
+}
+
+.role-box p {
+  font-size: 16px;
+  color: var(--body-text);
+  margin-top: 0.625rem;
+}
+
+/* Offline Content Styles */
+#offline-content {
+  display: none;
+  padding: 2rem;
+  background-color: var(--offline-bg);
+  min-height: 100vh;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+#offline-content h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+#offline-content p {
+  font-size: 1.2rem;
+  color: var(--body-text);
+  margin-bottom: 1.5rem;
+}
+
+#offline-content .category {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px var(--shadow);
+}
+
+#offline-content .category h3 {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+}
+
+#offline-content .category ul {
+  list-style-type: disc;
+  margin-left: 1rem;
+  text-align: left;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(20%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Mobile Responsiveness */
+@media only screen and (max-width: 600px) {
   .Main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    min-height: 100vh;
-    animation: fadeIn 1s ease-in-out;
+    padding: 1rem;
   }
-  
-  /* Header Styles */
   .header {
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #2e7d32, #388E3C);
-    margin-bottom: 40px;
-    animation: slideIn 1s ease-in-out;
-    border-bottom: 2px solid #5bb450;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%); /* Create a wavy bottom edge */
+    padding: 1.5rem;
   }
-  
-  .logo {
-    max-width: 50px;
-    position: absolute;
-    left: 20px;
-    top: 20px;
-  }
-  
   .appName {
-    font-size: 2.5em;
-    color: #fff;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
+    font-size: 4rem;
   }
-  
   .instruct {
-    font-size: 1.2em;
-    color: #e0f7e9;
-    line-height: 1.4;
-    padding: 0 20px;
-    margin-top: 10px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
+    font-size: 1rem;
   }
-  
   .tagline {
-    font-size: 1em;
-    color: #e0f7e9;
-    margin-top: 5px;
-    position: relative;
-    z-index: 1;
-    font-style: italic;
+    font-size: 2rem;
   }
-  
-  /* Container styling to center items */
-  .role-selection-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-  
-  /* Styling for the clickable boxes */
   .role-box {
-    border: 3px solid #5bb450;
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    cursor: pointer;
-    background: #cce7c9;
-    width: 200px;
-    height: 250px;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeInUp 1.2s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px;
+    padding: 1rem;
+    height: auto;
   }
-  
-  .role-box:hover {
-    background-color: #e0f2f1;
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  .role-box:active {
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
-  }
-  
-  /* Icon styling */
   .role-box .icon {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
+    width: 60px;
+    height: 60px;
   }
-  
-  /* Role label styling */
   .role-box span {
-    font-size: 24px;
-    color: #46923c;
-    font-weight: bold;
+    font-size: 18px;
   }
-  
-  /* Descriptive text below icons */
   .role-box p {
-    font-size: 16px;
-    color: #555;
-    margin-top: 10px;
+    font-size: 14px;
+  }
+  body {
+    background: url('bg.png') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  /* Apply transparency to all elements */
+  
+  .header {
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(1px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .appName, .tagline, .instruct{
+    color: green;
   }
   
-  /* Keyframe animations */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  nav, main, section, table, button {
+    background: rgba(255, 255, 255, 0.1); /* Subtle transparency */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-  
-  @keyframes slideIn {
-    0% {
-      transform: translateY(-50%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
+
+  button {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
-  
-  @keyframes fadeInUp {
-    0% {
-      transform: translateY(20%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
+
+  button:hover {
+    background-color: rgba(255, 255, 2553 0.3);
+    transform: scale(1.5);
   }
-  
-  /* Mobile Responsiveness */
-  @media only screen and (max-width: 600px) {
-    .Main {
-      padding: 10px;
-    }
-  
-    .header {
-      padding: 15px;
-    }
-  
-    .appName {
-      font-size: 2em;
-    }
-  
-    .instruct {
-      font-size: 1em;
-    }
-  
-    .tagline {
-      font-size: 0.9em;
-    }
-  
-    .role-box {
-      width: 150px;
-      height: auto;
-      padding: 15px;
-    }
-  
-    .role-box .icon {
-      width: 60px;
-      height: 60px;
-    }
-  
-    .role-box span {
-      font-size: 18px;
-    }
-  
-    .role-box p {
-      font-size: 14px;
-    }
+  #offline-content {
+    padding: 1rem;
   }
+ 
+ 
+  #offline-content {
+    padding: 1rem;
+  }
+ 
   
+  #offline-content {
+    padding: 1rem;
+  }
+ 
+}
