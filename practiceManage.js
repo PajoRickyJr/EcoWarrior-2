@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getFirestore, collection, getDocs, doc, updateDoc, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { logAuditTrail } from "./auditTrail.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsfV19SLzcVelg5Z5bjp3h1EJiStFLeoI",
@@ -18,15 +19,20 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+
+
 // Encapsulate global admin state and functions in one object.
 const AdminDashboard = {
+
+  
   loadedPractices: {},
   pendingPracticeChanges: {},
-
+  allTips:[],
   // Initialize the dashboard.
   init() {
     this.setupDynamicDashboard();
     this.initSignOut();
+    this.setupScrollHighlight();
   },
 
   // ----------------------------
@@ -47,11 +53,9 @@ const AdminDashboard = {
       });
     }
   },
-
-  // ----------------------------
+ 
   // Practice Listeners & Modal
-  // ----------------------------
-
+ 
   attachPracticeListeners(category, practiceElem) {
     const editBtn = practiceElem.querySelector(".editPractice");
     const toggleBtn = practiceElem.querySelector(".togglePractice");
@@ -62,14 +66,27 @@ const AdminDashboard = {
       });
     }
     if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => {
+      toggleBtn.addEventListener("click", async () => {
         const statusSpan = practiceElem.querySelector(".practice-status");
+        const title = practiceElem.querySelector(".practice-details h3").textContent;
         if (statusSpan) {
           const currentStatus = statusSpan.textContent.trim().toLowerCase();
           const newStatus = currentStatus === "enabled" ? "disabled" : "enabled";
           statusSpan.textContent =
             newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
           toggleBtn.textContent = newStatus === "enabled" ? "Disable" : "Enable";
+
+          //Logging the action in the audit trail
+          const previousState = { status: currentStatus};
+          const newState = { status: newStatus};
+          await logAuditTrail(
+            "Change the practice status",
+            `Practice Management:  (${category})`,
+            {  title, ...previousState},
+            {  title, ...newState}
+          
+          );
+
           // Mark the change.
           this.pendingPracticeChanges[practiceElem.id] = "toggle";
           // Show the unsaved indicator.
@@ -85,27 +102,8 @@ const AdminDashboard = {
     if (!modalOverlay) {
       modalOverlay = document.createElement("div");
       modalOverlay.id = "editPracticeModal";
-      Object.assign(modalOverlay.style, {
-        position: "fixed",
-        top: "0",
-        left: "0",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0,0,0,0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: "1000"
-      });
       const modalContent = document.createElement("div");
       modalContent.id = "editPracticeModalContent";
-      Object.assign(modalContent.style, {
-        backgroundColor: "#fff",
-        padding: "20px",
-        borderRadius: "8px",
-        minWidth: "300px",
-        boxShadow: "0 4px 6px rgba(0,0,0,0.3)"
-      });
       modalOverlay.appendChild(modalContent);
       document.body.appendChild(modalOverlay);
     }
@@ -136,10 +134,25 @@ const AdminDashboard = {
     modalOverlay.style.display = "flex";
 
     document.getElementById("cancelEditPractice").addEventListener("click", this.closeEditModal);
-    form.addEventListener("submit", (e) => {
+
+    //edit and submit changes for the practice
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      const previousTitle = practiceElem.querySelector(".practice-details h3").textContent.trim();
+      const previousDescription = practiceElem.querySelector(".practice-description")?.textContent.trim() || "";
+
       const newTitle = document.getElementById("editPracticeTitle").value.trim();
       const newDescription = document.getElementById("editPracticeDescription").value.trim();
+
+       // Logging the action of editing practice in the Audit Trail
+       await logAuditTrail (
+        "Edit Practice",
+        `Practice Management: (${category})`,
+       { title: previousTitle, description: previousDescription },
+       { title: newTitle, description: newDescription}
+       );
+
       if (newTitle !== "") {
         practiceElem.querySelector(".practice-details h3").textContent = newTitle;
       }
@@ -152,6 +165,8 @@ const AdminDashboard = {
         descElem.textContent = newDescription;
         practiceElem.querySelector(".practice-details").appendChild(descElem);
       }
+     
+      
       // Mark change as edit.
       this.pendingPracticeChanges[practiceElem.id] = "edit";
       const marker = practiceElem.querySelector(".unsaved-indicator");
@@ -264,7 +279,7 @@ const AdminDashboard = {
       document.getElementById(formId).style.display = "none";
     });
     
-    document.getElementById(formId).addEventListener("submit", (e) => {
+    document.getElementById(formId).addEventListener("submit", async (e) => {
       e.preventDefault();
       const titleInput = document.getElementById("newPracticeTitle-" + category);
       const descriptionInput = document.getElementById("newPracticeDescription-" + category);
@@ -278,6 +293,12 @@ const AdminDashboard = {
         alert("Please enter a practice title.");
         return;
       }
+
+      //logging the action of adding new practice to audit trail
+      const newPractice = {title, description, status};
+      await logAuditTrail(
+        "Add New Practice", `Practice Management: (${category})`, null, newPractice
+      );
       
       // Generate a temporary ID.
       const practiceId = category + "-" + Date.now();
@@ -367,23 +388,35 @@ const AdminDashboard = {
   setupSubTabNavigation() {
     const subTabButtons = document.querySelectorAll("#tabNavContainer button");
     const subTabSections = document.querySelectorAll(".practice-section");
-  
+
     subTabButtons.forEach(btn => {
       btn.addEventListener("click", function () {
         // Remove active class from all sub-tab buttons and sections.
         subTabButtons.forEach(b => b.classList.remove("active"));
         subTabSections.forEach(section => section.classList.remove("active"));
-  
+
         // Mark the clicked button as active.
         this.classList.add("active");
-        
+
         // Retrieve the target section's ID.
         const targetId = this.getAttribute("data-tab");
         const targetSection = document.getElementById(targetId);
-        
+
         if (targetSection) {
           targetSection.classList.add("active");
           targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        
+          document.body.style.background = "#f4f4f4"; 
+          document.body.style.transition = "background 0.5s ease";
+
+          
+          const sections = document.querySelectorAll("header, main, footer, section");
+          sections.forEach(section => {
+            section.style.background = ""; 
+            section.style.borderRadius = ""; 
+            section.style.boxShadow = ""; 
+          });
         } else {
           console.warn("No section with ID '" + targetId + "' found.");
         }
@@ -401,8 +434,6 @@ const AdminDashboard = {
       { id: "water", title: "Water Conservation" },
       { id: "waste", title: "Waste Management" },
       { id: "energy", title: "Energy Saving" },
-      { id: "recycling", title: "Recycling" },
-      { id: "tips", title: "Tips" }
     ];
     
     // Generate UI for each category.
@@ -417,7 +448,333 @@ const AdminDashboard = {
     });
   
     this.setupSubTabNavigation();
+    this.createTipsSection();
+  },
+
+  // Enhanced scroll-based sub-tab highlighting
+  setupScrollHighlight() {
+    const subTabButtons = document.querySelectorAll("#tabNavContainer button");
+    const subTabSections = document.querySelectorAll(".practice-section");
+
+    window.addEventListener("scroll", () => {
+      let activeSectionId = "";
+
+      subTabSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+          activeSectionId = section.id;
+        }
+      });
+
+      subTabButtons.forEach((btn) => {
+        btn.classList.remove("active");
+        if (btn.getAttribute("data-tab") === activeSectionId) {
+          btn.classList.add("active");
+        }
+      });
+    });
+  },
+
+  // Add a new section for managing tips
+  createTipsSection() {
+    let tipsSection = document.getElementById("tipsSection");
+
+    if (!tipsSection) {
+    tipsSection = document.createElement("div");
+    tipsSection.id = "tipsSection";
+    document.getElementById("sectionsContainer").appendChild(tipsSection);
+    }
+
+    //the content of the tips section
+    tipsSection.innerHTML = `
+      <h3>Manage Eco Tips</h3>
+      <div class ="searchTipAd">
+        <input type="text" id = "tipSearchInput" placeholder = "Search tips..">
+        <label><input type ="checkbox" id="showEnabledTips" checked> Enabled </label>
+        <label><input type = "checkbox" id = "showDisabledTips" checked> Disabled </label>
+      </div>
+      <button id="addNewTipBtn" class="add-button">Add New Tip</button>
+      <form id="newTipForm" class="new-practice-form">
+        <select id="tipCategory">
+          <option value="water">Water</option>
+          <option value="energy">Energy</option>
+          <option value="waste">Waste</option>
+        </select>
+        <textarea id="tipContent" placeholder="Enter your eco tip here..." required></textarea>
+        <button type="submit">Save Tip</button>
+        <button type="button" id="cancelNewTip">Cancel</button>
+      </form>
+      <div id="tipsList" class="practices-list">
+        <p class="no-practice-message">No tips available</p>
+      </div>
+    `;
+
+    // Add event listeners for the form
+    const newTipForm = document.getElementById("newTipForm");
+    const addNewTipBtn = document.getElementById("addNewTipBtn");
+    const cancelNewTip = document.getElementById("cancelNewTip");
+
+    addNewTipBtn.addEventListener("click", () => {
+      newTipForm.style.display = "flex";
+    });
+
+    cancelNewTip.addEventListener("click", () => {
+      newTipForm.style.display = "none";
+    });
+
+    newTipForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const category = document.getElementById("tipCategory").value;
+      const content = document.getElementById("tipContent").value.trim();
+
+      if (!content) {
+        alert("Please enter a tip.");
+        return;
+      }
+
+      try {
+        const newTip = {
+          category,
+          content,
+          status: "enabled",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+
+        // Add the tip to Firestore
+        const docRef = await addDoc(collection(db, "ecoTips"), newTip);
+
+        // Add the tip to the UI
+        this.renderTip({ id: docRef.id, ...newTip });
+
+        // Reset and hide the form
+        newTipForm.reset();
+        newTipForm.style.display = "none";
+        alert("New tip added successfully.");
+      } catch (error) {
+        console.error("Error adding new tip:", error);
+        alert("Failed to add the tip. Please try again.");
+      }
+    });
+
+    // Fetch and render existing tips
+    this.fetchAndRenderTips();
+
+    const searchInput = document.getElementById("tipSearchInput");
+    const showEnabled = document.getElementById("showEnabledTips");
+    const showDisabled = document.getElementById("showDisabledTips");
+
+    searchInput.addEventListener("input", () => this.renderFilteredTips());
+    showEnabled.addEventListener("change", () => this.renderFilteredTips());
+    showDisabled.addEventListener("change", () => this.renderFilteredTips());
+  },
+
+  // Open a modal for editing tips
+  openEditTipModal(tip, tipElem) {
+    let modalOverlay = document.getElementById("editTipModal");
+    if (!modalOverlay) {
+      modalOverlay = document.createElement("div");
+      modalOverlay.id = "editTipModal";
+
+      const modalContent = document.createElement("div");
+      modalContent.id = "editTipModalContent";
+      modalOverlay.appendChild(modalContent);
+      document.body.appendChild(modalOverlay);
+
+      // Attach cancel button listener once
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target.id === "editTipModal") {
+          this.closeEditTipModal();
+        }
+      });
+    }
+
+    const modalContent = document.getElementById("editTipModalContent");
+    modalContent.innerHTML = `
+      <h2>Edit Tip</h2>
+      <form id="editTipForm">
+        <label>Category:</label>
+        <select id="editTipCategory">
+          <option value="water" ${tip.category === "water" ? "selected" : ""}>Water</option>
+          <option value="energy" ${tip.category === "energy" ? "selected" : ""}>Energy</option>
+          <option value="waste" ${tip.category === "waste" ? "selected" : ""}>Waste</option>
+        </select>
+        <label>Content:</label>
+        <textarea id="editTipContent">${tip.content}</textarea>
+        <div style="text-align:right;">
+          <button type="button" id="cancelEditTip">Cancel</button>
+          <button type="submit" id="saveEditTip">Save</button>
+        </div>
+      </form>
+    `;
+
+    modalOverlay.style.display = "flex";
+
+    // Attach save button listener
+    const form = document.getElementById("editTipForm");
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+
+      const newCategory = document.getElementById("editTipCategory").value;
+      const newContent = document.getElementById("editTipContent").value.trim();
+
+      if (newContent === "") {
+        alert("Please enter tip content.");
+        return;
+      }
+
+      try {
+        await updateDoc(doc(db, "ecoTips", tip.id), {
+          category: newCategory,
+          content: newContent,
+          updatedAt: new Date(),
+        });
+
+        tipElem.querySelector(".practice-details p").textContent = newContent;
+        tipElem.querySelector(".practice-details p:nth-child(2)").textContent = `Category: ${newCategory.charAt(0).toUpperCase() + newCategory.slice(1)}`;
+
+        alert("Tip updated successfully.");
+        this.closeEditTipModal();
+      } catch (error) {
+        console.error("Error updating tip:", error);
+        alert("Failed to update the tip. Please try again.");
+      }
+    };
+
+    // Attach cancel button listener
+    document.getElementById("cancelEditTip").onclick = () => {
+      this.closeEditTipModal();
+    };
+  },
+
+  closeEditTipModal() {
+    const modalOverlay = document.getElementById("editTipModal");
+    if (modalOverlay) {
+      modalOverlay.style.display = "none";
+    }
+  },
+
+  // Render a single tip in the UI
+  renderTip(tip) {
+    const tipsList = document.getElementById("tipsList");
+    const placeholder = tipsList.querySelector(".no-practice-message");
+    if (placeholder) placeholder.remove();
+
+    const tipElem = document.createElement("div");
+    tipElem.className = "practice-item";
+    tipElem.id = `tip-${tip.id}`;
+    tipElem.innerHTML = `
+      <div class="practice-details">
+        <p>Tip: ${tip.content}</p>
+        <p>Category: ${tip.category.charAt(0).toUpperCase() + tip.category.slice(1)}</p>
+        <p>Status: <span class="practice-status">${tip.status.charAt(0).toUpperCase() + tip.status.slice(1)}</span></p>
+      </div>
+      <div class="practice-actions">
+        <button class="editTip">Edit</button>
+        <button class="toggleTip">${tip.status === "enabled" ? "Disable" : "Enable"}</button>
+      </div>
+    `;
+
+    // Attach event listeners for the buttons
+    const editButton = tipElem.querySelector(".editTip");
+    editButton.addEventListener("click", () => {
+      this.openEditTipModal(tip, tipElem);
+    });
+
+    const toggleButton = tipElem.querySelector(".toggleTip");
+    toggleButton.addEventListener("click", () => {
+      const newStatus = tip.status === "enabled" ? "disabled" : "enabled";
+
+      updateDoc(doc(db, "ecoTips", tip.id), { status: newStatus, updatedAt: new Date() })
+        .then(() => {
+          tip.status = newStatus;
+          tipElem.querySelector(".practice-status").textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+          toggleButton.textContent = newStatus === "enabled" ? "Disable" : "Enable";
+          alert("Tip status updated successfully.");
+        })
+        .catch((error) => {
+          console.error("Error updating tip status:", error);
+          alert("Failed to update the tip status. Please try again.");
+        });
+    });
+
+    tipsList.appendChild(tipElem);
+  },
+
+  fetchAndRenderTips() {
+    const tipsList = document.getElementById("tipsList");
+    if (!tipsList) {
+      console.error("Tips list element not found.");
+      return;
+    }
+
+    tipsList.innerHTML = "<p>Loading tips...</p>";
+
+    getDocs(collection(db, "ecoTips"))
+      .then(querySnapshot => {
+        tipsList.innerHTML = ""; // Clear the tips list
+
+        if (querySnapshot.empty) {
+          tipsList.innerHTML = "<p class='no-practice-message'>No tips available</p>";
+          this.allTips = [];
+          return;
+        }
+        
+        this.allTips = [];
+        querySnapshot.forEach(doc => {
+          const tipData = doc.data();
+          this.allTips.push({ id: doc.id, ...tipData});
+        });
+        this.renderFilteredTips();
+      })
+      .catch(error => {
+        console.error("Error fetching EcoTips:", error);
+        tipsList.innerHTML = "<p class='no-practice-message'>Failed to load tips. Please try again later.</p>";
+      });
+  },
+  
+  renderFilteredTips() {
+    const tipsList = document.getElementById("tipsList");
+    if (!tipsList) return;
+    
+    // Safely get filter elements
+    const searchInput = document.getElementById("tipSearchInput");
+    const showEnabledCheckbox = document.getElementById("showEnabledTips");
+    const showDisabledCheckbox = document.getElementById("showDisabledTips");
+    
+    // If any filter elements are missing, show all tips
+    if (!searchInput || !showEnabledCheckbox || !showDisabledCheckbox) {
+      this.allTips.forEach(tip => this.renderTip(tip));
+      return;
+    }
+    
+    const searchValue = searchInput.value.trim().toLowerCase();
+    const showEnabled = showEnabledCheckbox.checked;
+    const showDisabled = showDisabledCheckbox.checked;
+    
+    tipsList.innerHTML = ""; // Clear current tips
+  
+    let filtered = this.allTips.filter(tip => {
+      const matchesSearch = tip.content.toLowerCase().includes(searchValue);
+      const isEnabled = tip.status === "enabled";
+      const isDisabled = tip.status === "disabled";
+      
+      // Show tips that match search AND match enabled/disabled filters
+      return matchesSearch && (
+        (showEnabled && isEnabled) || 
+        (showDisabled && isDisabled)
+      );
+    });
+    
+    if (filtered.length === 0) {
+      tipsList.innerHTML = "<p class='no-practice-message'>No tips found.</p>";
+      return;
+    }
+    
+    filtered.forEach(tip => this.renderTip(tip));
   }
+  
 };
 
 // Initialize on DOMContentLoaded.
