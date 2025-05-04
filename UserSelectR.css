@@ -1,18 +1,20 @@
 /* Enhanced Global Theme Colors */
 :root {
-    --primary-color: #388E3C;        /* Rich green for a stronger appearance */
-    --secondary-color: #66BB6A;      /* Brighter green for accents */
-    --accent-color: #FFD740;         /* Warm yellow for highlights */
-    --background-color: #F1F8E9;     /* Softer greenish-gray for an inviting background */
-    --text-color: #37474F;           /* Deep gray for better contrast */
-    --header-text-color: #FFFFFF;    /* White for readability */
-    --card-shadow: rgba(0, 0, 0, 0.15); /* Enhanced shadow depth */
+    --primary-color: #2e7d32;       
+    --accent-color: #FFD740;         
+    --background-color: #F1F8E9;    
+    --secondary-color: #66BB6A;      
+    --text-color: #37474F;          
+    --header-text-color: #FFFFFF;    
+    --card-shadow: rgba(0, 0, 0, 0.15); 
   }
   
   /* General Body Enhancements */
   body {
     font-family: 'Arial', sans-serif;
-    background-color: var(--background-color);
+    background: linear-gradient(to bottom, #E8F5E9, #C8E6C9); /* Soft green gradient */
+    background-size: cover;
+    background-attachment: fixed;
     color: var(--text-color);
     padding: 20px;
     line-height: 1.6;
@@ -20,27 +22,33 @@
   
   /* Header Styling */
   header h1 {
-    font-size: 3rem; /* Slightly larger for impact */
+    font-size: 3rem; 
     color: var(--primary-color);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); 
+    background: linear-gradient(90deg, #43a047, #66bb6a);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     animation: headerBounce 1.2s ease;
   }
   
   header p {
     font-size: 1.3rem;
-    color: #556;
+    color: #37474f;
     margin-top: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   }
   
   /* Main Content Enhancements */
   main {
-    max-width: 650px;
-    margin: 0 auto;
-    background: linear-gradient(to bottom, #FFFFFF, #F1F8E9); /* Subtle gradient */
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 12px 24px var(--card-shadow); /* More pronounced shadow */
-    animation: fadeIn 2s ease;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+  backdrop-filter: blur(5px); /* Frosted glass effect */
+  border: 2px solid #66BB6A; /* Green border for emphasis */
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Adds depth */
+  animation: fadeIn 2s ease;
   }
   
   /* Enhanced Form Styling */
@@ -90,22 +98,13 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
   
-  /* Success/Error Message Styling */
-  .message {
-    padding: 15px;
-        border-radius: 8px;
-font-size: 1rem;
-    animation: fadeIn 0.5s ease;
-  }
-  
-  .message.success {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .message.error {
-    background-color: #f8d7da;
-    color: #721c24;
+  #joinBtn {
+    color: #256428;
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: #4caf50;
   }
   
   /* Footer Enhancements */
@@ -129,12 +128,66 @@ font-size: 1rem;
   /* Loading Spinner Update */
   .spinner {
     border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border-top: 16px solid #43a047; /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
     margin: 20px auto; /* Center the spinner */
+  }
+  
+  /* Notification Message */
+  #notif {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    margin: 20px auto;
+    width: auto;
+    max-width: 90%;
+    text-align: center;
+    border-radius: 40px;
+    font-weight: bold;
+    display: none; 
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+    display: block;
+  }
+  
+  .error {
+    background-color: #f8d7da;
+    color: #721c24;
+    display: block;
+  }
+  
+   
+
+  /* Loading Spinner */
+  #loadingSpinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+  
+  .spinner {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
   }
   
   /* Animations */
@@ -162,29 +215,65 @@ font-size: 1rem;
   }
   
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Fade-out animation for notification */
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
   
   /* Responsive Adjustments */
   @media (max-width: 600px) {
-    header h1 {
-      font-size: 2.5rem;
-    }
-  
-    header p {
-      font-size: 1.1rem;
-    }
-  
-    main {
-      padding: 20px;
-    }
-  
-    button {
-      width: 100%;
-    }
+  body {
+    background: url('userbg.png') no-repeat center center fixed;
+    background-size: cover;
+    overflow-y: auto;
   }
 
-  .hidden {
-    display: none;
+  #whole {
+    background: rgba(255, 255, 255, 0.2); /* Subtle transparency */
+    border-radius: 10px;    
+    padding: 20px;
   }
+
+  #whole main{
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  header p {
+    margin-top: -20px;
+    margin-bottom: 15px;
+  }
+  
+
+  h1, h2, h3, p, label {
+    color: green; /* White text for better contrast */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow for readability */
+  }
+
+  input, button {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: green;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+}
