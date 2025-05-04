@@ -7,41 +7,43 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1e1e2f; /* Dark Background for Contrast */
-  color: #e4e4f0; /* Light Text for Readability */
+  background-color: #1e1e2f !important;
+  color: #e4e4f0;
   padding: 20px;
+  min-height: 100vh;
 }
 
-/* Header */
+/* Header Styling */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #00b4db, #0083b0); /* Vibrant gradient */
-  color: white;
-  padding: 15px 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 2px solid #1e88e5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  color: #0083b0;
+  margin: 0;
 }
 
-#logoutButton {
-  background: #ff5757;
+header button {
+  background-color: #1e88e5;
   color: white;
   border: none;
+  border-radius: 20px;
   padding: 10px 20px;
-  font-size: 1rem;
   cursor: pointer;
-  border-radius: 5px;
-  transition: transform 0.3s, background-color 0.3s ease;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#logoutButton:hover {
-  background-color: #ff4040;
-  transform: scale(1.1);
+header button:hover {
+  background-color: #1e88e5;
+  transform: scale(1.05);
 }
 
 /* Main Sections */
@@ -92,6 +94,176 @@ table tr:hover {
   background-color: #33334a;
 }
 
+/* Feedback Table Specific Styling */
+#feedbackTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: #2c2c3a;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+#feedbackTable th {
+  background-color: #00b4db;
+  color: white;
+  text-align: left;
+  padding: 12px;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+#feedbackTable td {
+  padding: 12px;
+  font-size: 0.9rem;
+  color: #e4e4f0;
+  border-bottom: 1px solid #3a3a4f;
+  vertical-align: middle;
+}
+
+#feedbackTable tr:nth-child(even) {
+  background-color: #2a2a3d;
+}
+
+#feedbackTable tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+/* Responsive Feedback Table */
+@media (max-width: 768px) {
+  #feedbackTable {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  #feedbackTable th, #feedbackTable td {
+    text-align: left;
+    padding: 10px;
+  }
+}
+
+/* Feedback Table Status Area */
+.feedback-status-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 5px 0;
+}
+
+/* Badge Styling */
+.feedback-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+  min-width: 90px;
+  height: 35px;
+  line-height: 1;
+}
+
+.feedback-status:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-status-notRead {
+  background: linear-gradient(90deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.feedback-status-read {
+  background: linear-gradient(90deg, #4caf50, #388e3c);
+  color: white;
+}
+
+.feedback-status-notResolved {
+  background: linear-gradient(90deg, #ff9800, #f57c00);
+  color: white;
+}
+
+.feedback-status-resolved {
+  background: linear-gradient(90deg, #2196f3, #1976d2);
+  color: white;
+  font-weight: 200px;
+}
+
+/* Dropdown Styling for Mobile */
+select {
+  background-color: #ffffff; 
+  border: 1px solid #ccc; 
+  border-radius: 5px;
+  padding: 6px 12px; 
+  font-size: 0.9rem; 
+  color: #333; 
+  cursor: pointer; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-width: 120px; 
+  height: 35px; 
+  background-color: green;
+}
+
+/* Dropdown focus state */
+select:focus {
+  border-color: #2196f3; 
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5); 
+  outline: none; 
+}
+
+/* Dropdown hover state */
+select:hover {
+  border-color: #2196f3; 
+}
+
+/* Dropdown option styling */
+select option {
+  background-color: #ffffff; 
+  color: #333; 
+  padding: 5px; 
+}
+
+/* Dropdown Styling */
+.status-dropdown {
+  
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+  padding: 6px 12px; 
+  font-size: 0.9rem; 
+  color: #333; 
+  cursor: pointer; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  min-width: 120px;
+  height: 35px; 
+}
+
+/* Dropdown focus state */
+.status-dropdown:focus {
+  border-color: #2196f3; 
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5); 
+  outline: none; 
+}
+
+/* Dropdown hover state */
+.status-dropdown:hover {
+  border-color: #2196f3; 
+}
+
+/* Dropdown option styling */
+.status-dropdown option {
+  background-color: #ffffff; 
+  color: #333; 
+  padding: 5px; 
+}
+
 /* Buttons */
 button {
   background: #0083b0;
@@ -130,9 +302,61 @@ button:hover {
 }
 
 /* Feedback Management */
-#feedbackTable th, 
+#feedbackTable th,
 #feedbackTable td {
   text-align: center;
+}
+
+/* Modernistic Feedback Status Styles */
+.feedback-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+  min-width: 100px;
+  height: 40px;
+  line-height: 1;
+}
+
+.feedback-status:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific Status Styles */
+.feedback-status-notRead {
+  background: linear-gradient(90deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.feedback-status-read {
+  background: linear-gradient(90deg, #4caf50, #388e3c);
+  color: white;
+}
+
+.feedback-status-notResolved {
+  background: linear-gradient(90deg, #ff9800, #f57c00);
+  color: white;
+}
+
+.feedback-status-resolved {
+  background: linear-gradient(90deg, #2196f3, #1976d2);
+  color: white;
+}
+
+/* Row Background Transition */
+.feedback-row {
+  transition: background-color 0.3s ease;
+}
+
+.feedback-row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Stylish Messages */
@@ -155,14 +379,12 @@ button:hover {
   color: white;
 }
 
-/* ---------------------------
-   MAIN TAB NAVIGATION STYLES
------------------------------- */
+/*  MAIN TAB NAVIGATION STYLES */
 
 .tab-nav {
   display: flex;
   justify-content: center;
-  background-color: #2c2c3a; /* Similar to your section background */
+  background-color: #2c2c3a;
   border-radius: 10px;
   overflow: hidden;
   margin: 30px 0 20px;
@@ -188,9 +410,7 @@ button:hover {
   color: #ffffff;
 }
 
-/* ---------------------------
-   DYNAMIC SUB-TAB NAVIGATION FOR PRACTICES
------------------------------- */
+/* DYNAMIC SUB-TAB NAVIGATION FOR PRACTICES */
 #tabNavContainer {
   display: flex;
   justify-content: center;
@@ -220,30 +440,25 @@ button:hover {
   color: #ffffff;
 }
 
-/* ---------------------------
-   TAB SECTION VISIBILITY
------------------------------- */
+/*TAB SECTION VISIBILITY */
 .tab-section {
   display: none;
 }
 
 .tab-section.active {
-  display: block;
+    display: block;
 }
 
-/* ---------------------------
-   RESPONSIVE STYLES
------------------------------- */
+.editTip, .toggleTip, .editPractice, .togglePractice {
+  width: 80px;
+}
+
+/* RESPONSIVE STYLES */
 @media (max-width: 600px) {
   .tab-nav {
     flex-wrap: wrap;
   }
 }
-
-/* ---------------------------
-    NEW PRACTICE FORM & ITEMS
------------------------------- */
-
 /* New Practice Form Styles */
 .new-practice-form {
   margin-top: 15px;
@@ -253,7 +468,6 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* Hide all new-practice forms by default */
   display: none;
 }
 
@@ -277,9 +491,7 @@ button:hover {
   margin-top: 15px;
 }
 
-/* ---------------------------
-    Updated Individual Practice Item Styles
------------------------------- */
+/* Updated Individual Practice Item Styles*/
 .practice-item {
   display: flex;
   justify-content: space-between;
@@ -327,9 +539,8 @@ button:hover {
   margin-left: 10px;
   font-weight: bold;
   color: #ff9800;
-  /* Hide all global unsaved indicators by default */
   display: none;
-}
+  }
 
 /* Placeholder for No Practice Message */
 .no-practice-message {
@@ -341,9 +552,7 @@ button:hover {
   border-radius: 5px;
 }
 
-/* ---------------------------
-    Container for Dynamically Generated Sections
------------------------------- */
+/*  Container for Dynamically Generated Sections */
 #sectionsContainer {
   margin-top: 10px;
 }
@@ -353,9 +562,207 @@ button:hover {
   top: 0;
   z-index: 100;
   background-color: #2c2c3a;
-  padding: 10px 0; /* Optional: adjust for spacing */
+  padding: 10px 0;
 }
 
 #sectionsContainer {
-  padding-top: 60px; /* Give enough space so that content doesn't get hidden behind the fixed/sticky nav */
+  padding-top: 60px;
+}
+
+/* Audit Trail Section */
+#auditTrail {
+  margin-top: 20px;
+  display: block;
+}
+
+#auditTrail h2 {
+  font-size: 1.5rem;
+  color: #00b4db;
+  margin-bottom: 10px;
+}
+
+#auditTrailTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #2c2c3a;
+  color: #e4e4f0;
+}
+
+#auditTrailTable th,
+#auditTrailTable td {
+  border: 1px solid #444;
+  padding: 10px;
+    text-align: left;
+  }
+
+#auditTrailTable th {
+  background-color: #00b4db;
+  color: #fff;
+  font-weight: bold;
+}
+
+#auditTrailTable tr:nth-child(even) {
+  background-color: #333;
+}
+
+#auditTrailTable tr:hover {
+  background-color: #444;
+  cursor: pointer;
+}
+
+/* tip section styling */
+
+#tipsSection h3 {
+  color: #00b4db;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 18px;
+  border-bottom: 2px solid #0083b0;
+  letter-spacing: 1px;
+  padding-bottom: 5px;
+}
+
+/* Tip Modal Styling */
+#editTipModal, #editPracticeModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#editTipModalContent, #editPracticeModalContent {
+  background-color: #2c2c3a; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 400px;
+  color: #e4e4f0;
+}
+
+#editTipModalContent h2, #editPracticeModalContent h2 {
+  font-size: 1.5rem;
+  color: #00b4db;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#editTipModalContent label, #editPracticeModalContent label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #e4e4f0;
+  font-size: 1rem; /* Make labels more readable */
+}
+
+#editTipModalContent select,
+#editTipModalContent textarea,
+#editPracticeModalContent input,
+#editPracticeModalContent textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #3a3a4f;
+  color: #e4e4f0;
+  font-size: 1rem;
+  height: auto;
+}
+
+#editTipModalContent button, #editPracticeModalContent button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#editTipModalContent button#cancelEditTip, #editPracticeModalContent button#cancelEditPractice {
+  background-color: #ff5757;
+  color: white;
+  margin-right: 10px;
+}
+
+#editTipModalContent button#cancelEditTip:hover, #editPracticeModalContent button#cancelEditPractice:hover {
+  background-color: #ff4040;
+  transform: scale(1.05);
+}
+
+#editTipModalContent button#saveEditTip, #editPracticeModalContent button#saveEditPractice {
+  background-color: #4caf50;
+  color: white;
+}
+
+#editTipModalContent button#saveEditTip:hover, #editPracticeModalContent button#saveEditPractice:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Styling for the search input in the User Section */
+#userSearchInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+#userSearchInput:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
+  outline: none;
+}
+
+/* tip searching css */
+
+.searchTipAd {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+#tipSearchInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+#tipSearchInput:focus {
+  outline: none;
+  border-color: #0083b0;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.searchTipAd label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer ;
+}
+
+#showEnabledTips, #showDisabledTips {
+  width: 16px;
+  height: 16px;
+  accent-color: #0083b0;
+  cursor: pointer;
 }
