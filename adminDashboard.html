@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="adminDashboard.css" />
+  <link rel="stylesheet" href="adminDashboard.css?v=1.4" />
+  <link rel="icon" href="data:," />
 </head>
 <body>
   <div id="adminDashboard">
@@ -16,17 +17,21 @@
 
     <!-- Top Navigation / Tab Bar -->
     <nav class="tab-nav" aria-label="Main Sections Navigation">
-      <button data-tab="userManagement" class="active">User Management</button>
-      <button data-tab="practicesManagement">Eco-friendly Practices and Tips Management</button>
-      <button data-tab="feedbackManagement">Feedback Management</button>
+      <button data-tab="userManagement" class="active">User Section</button>
+      <button data-tab="tipsSection">Eco-friendly Tips Section</button>
+      <button data-tab="practicesManagement">Eco-friendly Practices Section</button>
+      <button data-tab="feedbackManagement">Feedback Section</button>  
+      
     </nav>
 
-    <!-- Main Content Area with Tab Sections -->
     <main>
       <div class="tab-content">
+
         <!-- User Management Section -->
+        <div id="indicator-userManagement" class="scroll-indicator"></div>
         <section id="userManagement" class="tab-section active">
-          <h2>User Management</h2>
+          <h2>User Section</h2>
+          <input type="text" id="userSearchInput" placeholder="Search by name or EcoWarrior Id"/>
           <table id="userTable">
             <thead>
               <tr>
@@ -39,14 +44,15 @@
               <tr>
                 <td colspan="3">No user data available</td>
               </tr>
-              <!-- Dynamically inserted user data -->
+              <!-- Users are inserted user data -->
             </tbody>
           </table>
         </section>
 
         <!-- Eco-friendly Practices Section (Dynamic) -->
+        <div id="indicator-practicesManagement" class="scroll-indicator"></div>
         <section id="practicesManagement" class="tab-section">
-          <h2>Eco-friendly Practices and Tips Management</h2>
+          <h2>Eco-friendly Practices Section</h2>
           <!-- This container will be populated dynamically -->
           <div id="practicesDynamicContainer">
             <!-- Sub-tab navigation for each eco-friendly practice category -->
@@ -56,12 +62,29 @@
           </div>
         </section>
 
-        <!-- Feedback Management Section -->
+        <!-- Eco-friendly Tips Section -->
+         <div id="indicator-tipsManagement" class="scroll-indicator"> </div>
+          <section id="tipsSection" class="tab-section">
+            <h2>Tips Section</h2>
+          </section>
+        
+
+        <!-- Feedback Section -->
+        <div id="indicator-feedbackManagement" class="scroll-indicator"></div>
         <section id="feedbackManagement" class="tab-section">
-          <h2>Feedback Management</h2>
-          <table id="feedbackTable">
+          <h2>Feedback Section</h2>
+          <label for="feedbackSortDropdown">Sort by:</label>
+        <select id="feedbackSortDropdown">
+          <option value="all">All</option>
+          <option value="notRead">Not Read</option>
+          <option value="read">Read</option>
+          <option value="notResolved">Not Resolved</option>
+          <option value="resolved">Resolved</option>
+        </select>
+          <table id="feedbackTable">            
             <thead>
               <tr>
+                <th>Feedback ID</th>
                 <th>Name</th>
                 <th>EcoWarrior ID</th>
                 <th>Feedback</th>
@@ -70,7 +93,7 @@
             </thead>
             <tbody>
               <tr>
-                <td colspan="4">No feedback available</td>
+                <td colspan="5">No feedback available</td>
               </tr>
               <!-- Dynamically inserted feedback data -->
             </tbody>
@@ -81,7 +104,7 @@
   </div>
 
   <!-- External JavaScript Files -->
-  <script type="module" src="adminDashboard.js"></script>
-  <script type="module" src="practiceManage.js"></script>
+  <script type="module" src="adminDashboard.js?v=1.4"></script>
+  <script type="module" src="practiceManage.js?v=1.4"></script>
 </body>
 </html>
