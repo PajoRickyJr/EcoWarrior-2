@@ -4,32 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoWarrior - User</title>
-  <link rel="stylesheet" href="userContent.css">
-  <!-- Placeholder favicon -->
-  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="userContent.css?v=1.4">
+  <link rel="icon" href="data:," />
 </head>
 <body>
+
+  
   <!-- Header Section -->
   <header id="userHeader">
-    <div id="connectivityStatus"></div>
-<button id="syncPracticesBtn">Sync Practices</button>
-    <h1 id="nameGreet"></h1>
-    <p id="ecowarriorID"></p>
+    <div class="header-left">
+      <button id="exitBtn">Exit</button>
+    </div>
+    <div class="header-center">
+      <h1 id="nameGreet"></h1>
+      <p id="ecowarriorID"></p>
+    </div>
+    <div class="header-right">
+      <button id="syncPracticesBtn">Sync Practices</button>
+      <button id="searchButton" aria-label="Search">🔍</button>
+    </div>
   </header>
+  <!-- Search Modal -->
+  <div id="searchModal" class="hidden">
+    <div id="searchModalContent">
+      <button id="closeSearchModal" aria-label="Close Search">&times; </button>
+      <h2>Search Tips and Practices</h2>
+      <input type="text" id="searchInput" placeholder="Type to search...">
+      <div id="searchResults"></div>
+    </div>
+  </div>
 
-  <!-- Main Container for Practices -->
-  <main id="sectionsContainer">
-    <!-- Practices will be rendered here -->
+  <div id="mainContent">
+     <!-- Tips Section --> 
+      <section id="tipsSection">
+        <h2>Eco Tips</h2>    
+  <div id="tipsContainer"></div>
+  </section>
+
+  
+  <!-- Categories Container -->
+  <section id="practiceSection">
+  <main id="categoriesContainer">
+    <h2>Select a Category</h2>                   
+    <div id="categoriesList">
+      <!-- Categories will be dynamically rendered here -->
+    </div>
+  <!-- Category Content -->
+  <div id="categoryContent" class="hidden">
+    <button id="backToCategoriesBtn">Back</button>
+    <h2 id="categoryTitle"></h2>
+    <div id="categoryPractices"></div>
+  </div>
   </main>
+</section>
+
+
 
   <!-- Feedback Form -->
-   <button id="toggleFeedbackBtn">Give Feedback</button>
+   <section id="feedbackSection">
+  <button id="toggleFeedbackBtn">Give Feedback</button>
   <form id="feedbackForm" class="hidden" aria-hidden="true">
     <label for="feedback">Your Feedback:</label>
     <textarea id="feedback" placeholder="Share your thoughts..."></textarea>
     <button type="submit">Submit Feedback</button>
   </form>
-
-  <script type="module" src="userContent.js"></script>
+</section>
+</div>
+  <script type="module" src="userContent.js?v=1.4"></script>
 </body>
 </html>
