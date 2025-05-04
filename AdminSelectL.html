@@ -4,19 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Login</title>
-    <link rel="stylesheet" href="AdminSelectL.css">
+    <link rel="stylesheet" href="AdminSelectL.css?v=1.4">
 </head>
 <body>
-  <!-- <input type="button" id="backtoMain" onclick="window.location.href='DashboardMain/dashboard.html';" title="Back">--> 
+
+<button id="backtoMain" onclick="window.location.href='index.html'">Back</button>
     <div class="login-container">
         <h1>Admin Login</h1>
         <form id="admin-login-form">
             <input type="email" id="admin-login-email" placeholder="Email" required>
             <input type="password" id="admin-login-password" placeholder="Password" required>
+            <a href="#" id="forgot-password" onclick="alert('To reset your password, please contact the system administrator for the reset instruction');">Forget Password</a>
             <button type="submit">Login</button>
         </form>
     </div>
   
-    <script type="module" src="AdminSelectL.js"></script>
+    <script type="module" src="AdminSelectL.js?v=1.4"></script>
 </body>
 </html>
