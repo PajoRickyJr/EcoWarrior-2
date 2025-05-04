@@ -1,4 +1,4 @@
-const CACHE_NAME = 'eco-warrior-cache-v1';
+const CACHE_NAME = 'eco-warrior-v1.4';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -7,6 +7,9 @@ const urlsToCache = [
   '/adminIcon.png',
   '/guestIcon.png',
   '/logo.png',
+  '/bg.png',
+  '/userbg.png',
+  '/practicesbg.png',
   '/adminSelectL.css',
   '/adminSelectL.html',
   '/adminSelectL.js',
@@ -20,6 +23,10 @@ const urlsToCache = [
   '/UserContent.css',
   '/UserContent.html',
   '/UserContent.js',
+  '/practiceManage.js',
+  '/auditTrail.js',
+  '/auditTrail.html',
+  '/auditTrail.css',
 ];
 
 // Install a service worker: Cache assets individually
@@ -29,35 +36,49 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME).then(cache => {
       console.log('Opened cache:', CACHE_NAME);
       return Promise.all(
-        urlsToCache.map(url => {
-          return fetch(url).then(response => {
-            if (!response.ok) {
-              // Log the error so you know which resource failed
-              throw new Error(`Request for ${url} failed with status ${response.status}`);
-            }
-            return cache.put(url, response);
-          }).catch(error => {
-            // Log each failed URL but continue installing
-            console.error(`Failed to fetch and cache ${url}:`, error);
-          });
-        })
+        urlsToCache.map(url =>
+          fetch(url)
+            .then(response => {
+              if (!response.ok) {
+                console.warn(`Failed to fetch ${url}: ${response.statusText}`);
+                return null; // Skip caching this resource
+              }
+              return cache.put(url, response);
+            })
+            .catch(error => {
+              console.error(`Failed to fetch and cache ${url}:`, error);
+            })
+        )
       );
     })
   );
 });
 
-// Cache and return requests
+// Cache and return requests with offline fallback
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') {
+    return; // Skip non-GET requests
+  }
+
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // If a cache is hit, return the response
-        if (response) {
-          return response;
-        }
-        // Otherwise, fetch the resource from the network
-        return fetch(event.request);
-      })
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request)
+        .then(networkResponse => {
+          const clonedResponse = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, clonedResponse);
+          });
+          return networkResponse;
+        })
+        .catch(error => {
+          console.error('Fetch failed:', error);
+          throw error;
+        });
+    })
   );
 });
 
