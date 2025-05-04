@@ -1,83 +1,124 @@
-/* *******************************
-   General Reset and Base Styles
-   ******************************* */
+/* General Styles*/
    * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-  .online {
-    color: green;
-  }
-  .offline {
-    color: red;
-  }
-  
-
   body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('practicesbg.png') no-repeat center center fixed;
+    background-size: cover;
+    overflow-y: auto;
     color: #333;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
-  
-  h1, h2, h3 {
-    color: #2c3e50;
-  }
-  
-  button, input, textarea, select {
-    font-family: inherit;
-    font-size: 1rem;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-    transition: all 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #ecf0f1;
-    cursor: pointer;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #3498db;
-  }
-  
-  a:hover {
-    text-decoration: underline;
+
+  html, body {
+    height: 100%;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
   }
   
   .hidden {
     display: none !important;
   }
   
-  /* *******************************
-     Header Section
-     ******************************* */
-  header {
-    background-color: #3498db;
+  /*Header Section*/
+  
+  #userHeader {
+    width: 100%;
+    position: static; 
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(1px); 
+    padding: 15px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; 
+    border-radius: 12px 12px 25px 25px;
+    margin: 0;
+  }
+  
+  #userHeader .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  
+  #userHeader h1 {
+    margin: 0;
+    font-size: 40px;
+    color: green;
+  }
+
+  #userHeader p {
+    margin: 0;
+    font-size: 25px;
+    color:green;
+  }
+  
+  #connectivityStatus {
+    font-size: 12px;
+    font-weight: solid green 330px;
+    color: green;
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  #syncPracticesBtn:hover, #exitBtn:hover {
+    background-color: #1e88e5;
+    transform: scale(1.05);
+  }
+  
+  #syncPracticesBtn, #exitBtn {
+    margin-left: 10px;
+    background-color: #2e7d32;
     color: white;
-    padding: 1rem;
-    text-align: center;
-    margin-bottom: 1rem;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 16px;
   }
   
-  header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+  #exitBtn:active {
+    transform: scale(0.95);
   }
   
-  header p {
-    font-size: 1rem;
-  }
-  
-  /* *******************************
-     Feedback Form
-     ******************************* */
-  #feedbackForm {
+  /* Feedback Form ans Section */
+     #feedbackSection {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
+    
+    #toggleFeedbackBtn {
+      background-color: #2e7d32;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    
+    #toggleFeedbackBtn:hov#feedbackForm {
     max-width: 500px;
     margin: 2rem auto;
     padding: 1rem;
@@ -89,7 +130,7 @@
   
   #feedbackForm label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 10px;
     font-weight: bold;
   }
   
@@ -100,6 +141,17 @@
     padding: 0.75rem;
     resize: vertical;
   }
+
+  #feedbackForm textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+    padding: 10px;
+    resize: vertical;
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    resize: vertical;
+  }
   
   #feedbackForm button[type="submit"] {
     background-color: #3498db;
@@ -108,10 +160,17 @@
     padding: 0.75rem 1rem;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
   #feedbackForm button[type="submit"]:hover {
     background-color: #2980b9;
+  }
+
+  #feedbackSection {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
   }
   
   .message-container {
@@ -133,14 +192,26 @@
     background-color: #e74c3c;
   }
   
-  /* *******************************
-     Dashboard Layout
-     ******************************* */
-  #mainboard {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
+  .feedback-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
   }
+
+  .feedback-buttons button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Main Content */
+     #mainContent {
+      
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
   
   .tab-nav {
     display: flex;
@@ -192,20 +263,23 @@
   }
   
   .practice-item {
-    background-color: #f9f9f9;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid #bdbdbd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .practice-item h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
   }
   
   .practice-item p {
-    font-size: 0.9rem;
+    margin-bottom: 10px;
     color: #555;
   }
   
@@ -215,22 +289,811 @@
     font-size: 1rem;
     margin-top: 1rem;
   }
-  
-  /* *******************************
-     Responsive Design
-     ******************************* */
-  @media (max-width: 768px) {
-    .tab-nav {
-      flex-direction: row;
-      gap: 0.5rem;
-    }
-  
-    .tab-nav button {
-      flex: none;
-      white-space: nowrap;
-    }
-  
-    #feedbackForm {
-      padding: 1rem;
-    }
+
+  /*Comment part styling*/
+
+  .comments-list li.loading {
+    font-style: italic;
+    color: #888;
   }
+
+  .comments-list li.error {
+    color: red;
+    font-weight: bold;
+  }
+
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .comment-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+
+  .comment-form-button {
+    align-self: flex-end;
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .comment-form-button:hover {
+    background-color: var(--secondary-color);
+  }
+
+  .comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .comments-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Default button styles */
+  .like-btn, .dislike-btn {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Active state styles */
+  .like-btn.active {
+    background-color: #4caf50; 
+    color: white;
+    border-color: #4caf50;
+  }
+
+  .dislike-btn.active {
+    background-color: #f44336; 
+    color: white;
+    border-color: #f44336;
+  }
+
+  /* Hover effects */
+  .like-btn:hover, .dislike-btn:hover {
+    background-color: #ddd;
+  } 
+
+  /* Categories Container */
+  #categoriesContainer {
+    text-align: center;
+    max-width: 800px; 
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  #categoriesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Glass effect */
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    justify-items: center;
+  }
+
+  .category-card {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Glass effect */
+  -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+ 
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .category-card h3 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Category Content */
+  #categoryContent {
+    display: none; 
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Glass effect */
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  #categoryContent.active {
+    display: block; /* Show when active */
+  }
+
+  #categoryContent h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+
+  #categoryPractices {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  #categoryPractices .practice-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+ 
+
+  #backToCategoriesBtn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  #backToCategoriesBtn:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+  }
+
+  #backToCategoriesBtn:active {
+    transform: scale(0.95);
+  }
+
+  /* Comments Section */
+  .comments-section {
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+
+  .comments-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  .comments-section li {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .comment-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .comment-input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .comment-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .comment-form button:hover {
+    background-color: #2980b9;
+  }
+
+
+  /*Tips Management Part*/
+
+  .tips-category {
+    margin-bottom: 30px;
+  }
+  
+  .tips-category h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+
+  /*Tips css*/
+
+  #tipsSection {
+    background: rgba(255,255,255,0.2);
+    
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  #tipsContainer {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    flex-direction: column;
+  }
+
+  #tipsContainer .tip-card {
+    width: 50%;
+    padding: 20px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(1px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  #tipsContainer .tip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .swiper {
+    display: flex;
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    gap: 15px;
+    padding: 10px;
+    scroll-snap-type: x mandatory; /* Enable snap scrolling */
+  
+  }
+  
+  .swiper::-webkit-scrollbar {
+    height: 8px; /* Height of the scrollbar */
+  }
+  
+  .swiper::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  
+  .swiper::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+  }
+  
+  .tip-card {
+    min-width: 250px; /* Set a fixed width for each card */
+    flex: 0 0 auto; /* Prevent cards from shrinking or growing */
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    scroll-snap-align: start; /* Snap to the start of each card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .tip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+/* Tips Container */
+.tips-category {
+  margin-bottom: 30px;
+}
+
+.tips-category h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+/* Swipeable container */
+.swiper {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 15px;
+  padding: 10px;
+  scroll-snap-type: x mandatory; /* Enable snap scrolling */
+}
+
+.swiper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.swiper::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.swiper::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+
+/* Tip card */
+.tip-card {
+  min-width: 250px; /* Set a fixed width for each card */
+  flex: 0 0 auto; /* Prevent cards from shrinking or growing */
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  scroll-snap-align: start; /* Snap to the start of each card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  #mainContent {
+    padding: 10px;
+
+  }
+
+  #userHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    height: auto;
+    border-radius: 20px, 20px; 
+  }
+
+  #userHeader .userInfo {
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  #userHeader h1 {
+    font-size: 40px;
+    color: green ;
+  }
+
+  #userHeader p {
+    font-size: 25px;
+    color: darkgreen ;
+  }
+
+  #syncPracticesBtn,
+  #exitBtn {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  #tipsContainer .tip-card {
+    width: 100%;
+  }
+
+   #categoryContent.active {
+    backdrop-filter: blur(10px);
+  }
+  
+   #feedbackForm {
+     padding: 1rem;
+  }
+
+  #tipsContainer .tip-card {
+    width: 100%;
+  }
+
+  #categoriesList {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))
+  }
+
+  .category-card{
+    height: 120px;
+    width: 150px;
+  }
+
+  #feedbackSection {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  #toggleFeedbackBtn {
+    padding: 8px 15px;
+    font-size: 14px;
+  } 
+}
+
+/* Styling for Search Modal */
+#searchModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Darker background for better contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#searchModal.hidden {
+  display: none;
+}
+
+#searchModalContent {
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  max-height: 500px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  overflow-y: auto; /* Allow scrolling for content */
+}
+
+#searchModalContent h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+#searchModalContent input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#searchModalContent #searchResults {
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.search-result-item {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.search-result-item h3 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
+  color: #2E7D32; 
+}
+
+.search-result-item p {
+  margin: 0;
+  color: #555;
+  font-size: 1rem;
+}
+
+.search-result-item:hover {
+  background-color: #e0f7fa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#closeSearchModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #2980b9;
+  color: white;
+  transform: scale(1.05);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 5px 10px;
+  border-radius: 5px;
+    }
+
+ #closeSearchModal:hover {
+  background-color: #2980b9;
+  color: white;
+    }
+
+#feedbackForm {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #feedbackForm label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  #feedbackForm input,
+  #feedbackForm textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    resize: vertical;
+  }
+
+  #feedbackForm textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+    padding: 10px;
+    resize: vertical;
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  #feedbackForm button[type="submit"] {
+    background-color: #3498db;
+    transform: scale(1.05);
+    }
+
+  #feedbackForm {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #feedbackForm label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  #feedbackForm input,
+  #feedbackForm textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    resize: vertical;
+  }
+
+  #feedbackForm textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+    padding: 10px;
+    resize: vertical;
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  #feedbackForm button[type="submit"] {
+    background-color: #3498db;
+    transform: scale(1.05);
+    }
+
+  #feedbackForm {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #feedbackForm label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  #feedbackForm input,
+  #feedbackForm textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    resize: vertical;
+  }
+
+  #feedbackForm textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+    padding: 10px;
+    resize: vertical;
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  #feedbackForm button[type="submit"] {
+    background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+    border-radius: 4px;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 5px 10px;
+font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Main Content */
+     #mainContent {
+      
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+  .tab-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto; /* Allow horizontal scrolling for small screens */
+  }
+  
+  .tab-nav button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    flex: 1;
+    text-align: center;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  .tab-nav button.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+  }
+  
+  .practice-section {
+    display: none;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .practice-section.active {
+    display: block;
+  }
+  
+  .search-bar {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .practices-list {
+    list-style: none;
+  }
+  
+  .practice-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid #bdbdbd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .practice-item h3 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  .practice-item p {
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .no-practice-message {
+    text-align: center;
+    color: #aaa;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+
+  /*Comment part styling*/
+
+  .comments-list li.loading {
+    font-style: italic;
+    color: #888;
+  }
+
+  .comments-list li.error {
+    color: red;
+    font-weight: bold;
+  }
+
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .comment-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#closeSearchModal:hover {
+  background-color: #1e88e5;
+  color: #fff;
+}
