@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #77eb80;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,59 +9,99 @@ body {
 }
 
 .login-container {
-    background-color: #ffffff;
-    color: #2e7d32;
-    padding: 20px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
 }
 
 .login-container h1 {
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #333333;
+    font-size: 1.8rem;
+    color: #1565c0;
+    font-weight: bold;
 }
 
-.login-container input {
+#admin-login-form input[type="email"],
+#admin-login-form input[type="password"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-}
-
-.login-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #388e3c;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    color: blue;
+    border: 1px solid #90caf9;
+    border-radius: 8px;
+    box-shadow: inset 0 2pxx 4px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
     cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
 }
 
-.login-container button:hover {
-    background-color: #2e7d32;
+#admin-login-form input[type="email"]:focus,
+#admin-login-form input[type="password"]:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 8px rgba(66, 165, 245, 0.5);
+    outline: none;
+}
+
+#admin-login-form button {
+    width: 100%;
+    max-width: 20%;
+    padding: 12px 20px;
+    background-color: #1e88e5;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#admin-login-form button:hover {
+    background-color: #1565c0;
+    transform: translateY(-2px);
+}
+
+#forgot-password {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #1e88e5;
+    text-decoration: none;
+    text-align: right;
+    transition: color 0.3s ease;
+}
+
+#forgot-password:hover {
+    color: #1565c0;
+    text-decoration: underline;
 }
 
 #backtoMain{
     margin-bottom: 20px;
+    font-weight: bold;
     padding: 10px 15px;
-    background-color: #388e3c;
+    background-color: #1e88e5;
     color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.9rem;
     width: 20%;
     position: absolute;
     top: 20px;
     left: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 
 }
 #backtoMain:hover {
-    background-color: #2e7d32;
+    background-color: #1565c0;
+    transform: translateY(-2px);
 }
 @media (max-width: 768px) {
     #backtoMain {
